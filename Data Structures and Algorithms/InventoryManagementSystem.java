@@ -107,3 +107,8 @@ public class InventoryManagementSystem {
 
     }
 }
+
+//--------Analaysis--------
+
+/*The analysis of the time complexity for developing this software is O(1) for adding the new product to the inventory, Updating the product(price, quantity, etc), deleting the product in the inventory.
+This time complexity is achieved through the using of HashMap collection datastructure. This was the most appropriate optimization that can be possible there are other like we can use the ArrayList but it is inefficient while adding the products in the middle of the inventory or deleting the product in the inventory. The time complexity when we use the ArrayList is O(n).*/
