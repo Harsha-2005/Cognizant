@@ -26,14 +26,19 @@ import java.util.Map;
 
 public class FinancialForecasting {
 
-    /* Basic recursive calculation of future value after n years.
+    /*
+     * Basic recursive calculation of future value after n years.
      * Time Complexity: O(n) — one recursive call per year, depth n.
      * Space Complexity: O(n) — call stack depth is n.
      *
-     * @param presentValue  The starting (current) value
-     * @param growthRate    Annual growth rate (e.g., 0.07 for 7%)
-     * @param years         Number of years into the future
-     * @return              Predicted future value after 'years' years */
+     * @param presentValue The starting (current) value
+     * 
+     * @param growthRate Annual growth rate (e.g., 0.07 for 7%)
+     * 
+     * @param years Number of years into the future
+     * 
+     * @return Predicted future value after 'years' years
+     */
     public static double futureValueRecursive(double presentValue, double growthRate, int years) {
         // Base Case: 0 years in the future = present value
         if (years == 0) {
@@ -43,17 +48,24 @@ public class FinancialForecasting {
         return futureValueRecursive(presentValue, growthRate, years - 1) * (1 + growthRate);
     }
 
-    /* Memoized recursive calculation of future value.
+    /*
+     * Memoized recursive calculation of future value.
      * Stores previously computed results to avoid redundant recursive calls.
      * Time Complexity: O(n) — each sub-problem is computed exactly once.
      * Space Complexity: O(n) — for the memoization cache + call stack.
      *
-     * @param presentValue  The starting (current) value
-     * @param growthRate    Annual growth rate (e.g., 0.07 for 7%)
-     * @param years         Number of years into the future
-     * @param memo          Cache map storing results for each 'years' value
-     * @return              Predicted future value after 'years' years */
-    public static double futureValueMemoized(double presentValue, double growthRate, int years, Map<Integer, Double> memo) {
+     * @param presentValue The starting (current) value
+     * 
+     * @param growthRate Annual growth rate (e.g., 0.07 for 7%)
+     * 
+     * @param years Number of years into the future
+     * 
+     * @param memo Cache map storing results for each 'years' value
+     * 
+     * @return Predicted future value after 'years' years
+     */
+    public static double futureValueMemoized(double presentValue, double growthRate, int years,
+            Map<Integer, Double> memo) {
         // Base Case
         if (years == 0) {
             return presentValue;
@@ -68,9 +80,11 @@ public class FinancialForecasting {
         return result;
     }
 
-    /* Iterative (non-recursive) calculation for comparison.
+    /*
+     * Iterative (non-recursive) calculation for comparison.
      * This is the most efficient approach: O(n) time, O(1) space.
-     * Eliminates call stack overhead entirely. */
+     * Eliminates call stack overhead entirely.
+     */
     public static double futureValueIterative(double presentValue, double growthRate, int years) {
         double value = presentValue;
         for (int i = 0; i < years; i++) {
@@ -82,9 +96,9 @@ public class FinancialForecasting {
     public static void main(String[] args) {
         System.out.println("=== Financial Forecasting Tool Demo ===\n");
 
-        double presentValue = 10_000.00;  // Starting investment: $10,000
-        double growthRate   = 0.08;       // 8% annual growth rate
-        int    forecastYears = 10;        // Forecast over 10 years
+        double presentValue = 10_000.00; // Starting investment: $10,000
+        double growthRate = 0.08; // 8% annual growth rate
+        int forecastYears = 10; // Forecast over 10 years
 
         System.out.printf("Initial Investment  : $%.2f%n", presentValue);
         System.out.printf("Annual Growth Rate  : %.0f%%%n", growthRate * 100);
@@ -116,27 +130,35 @@ public class FinancialForecasting {
 
 // -------- Analysis --------
 
-/* Time Complexity of the Recursive Algorithm:
- * -> Basic Recursion    : O(n) — each call reduces 'years' by 1 until base case (years=0).
- *                          Call stack depth = n, so space is also O(n).
+/*
+ * Time Complexity of the Recursive Algorithm:
+ * -> Basic Recursion : O(n) — each call reduces 'years' by 1 until base case
+ * (years=0).
+ * Call stack depth = n, so space is also O(n).
  *
  * Optimization: Memoization
- * -> Without memoization: If we compute futureValueRecursive multiple times for different
- *    'years' values (e.g., in a year-by-year breakdown), each call duplicates work.
- *    Total calls for years 0..n = 0 + 1 + 2 + ... + n = O(n²) repeated computations.
+ * -> Without memoization: If we compute futureValueRecursive multiple times for
+ * different
+ * 'years' values (e.g., in a year-by-year breakdown), each call duplicates
+ * work.
+ * Total calls for years 0..n = 0 + 1 + 2 + ... + n = O(n²) repeated
+ * computations.
  *
  * -> With memoization: Each unique 'years' value is computed only once.
- *    All repeated calls use cached results → O(n) total computations for years 0..n.
+ * All repeated calls use cached results → O(n) total computations for years
+ * 0..n.
  *
- * -> Iterative approach: Even better — O(n) time and O(1) space (no call stack overhead).
- *    Recommended for production use since recursion can cause stack overflow for very large n.
+ * -> Iterative approach: Even better — O(n) time and O(1) space (no call stack
+ * overhead).
+ * Recommended for production use since recursion can cause stack overflow for
+ * very large n.
  *
  * Summary:
  * ┌────────────────────────┬────────────────┬───────────────┐
- * │ Approach               │ Time           │ Space         │
+ * │ Approach │ Time │ Space │
  * ├────────────────────────┼────────────────┼───────────────┤
- * │ Basic Recursion        │ O(n)           │ O(n) stack    │
- * │ Memoized Recursion     │ O(n)           │ O(n) cache    │
- * │ Iterative              │ O(n)           │ O(1)          │
+ * │ Basic Recursion │ O(n) │ O(n) stack │
+ * │ Memoized Recursion │ O(n) │ O(n) cache │
+ * │ Iterative │ O(n) │ O(1) │
  * └────────────────────────┴────────────────┴───────────────┘
  */
