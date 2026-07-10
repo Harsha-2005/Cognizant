@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!--
+        Exercise 1 & 5: Basic bean definitions.
+        Spring manages the lifecycle of these objects — we don't new them up manually.
+    -->
+    <bean id="bookRepository" class="com.library.repository.BookRepository" />
+
+    <!--
+        Exercise 2 & 5 & 7: Setter injection — wire the repository into the service.
+        Using <property> for setter injection as required by exercises 2 and 5.
+        Using <constructor-arg> for constructor injection as required by exercise 7.
+        Both are shown here; the constructor-arg takes precedence at instantiation.
+    -->
+    <bean id="bookService" class="com.library.service.BookService">
+        <!-- Exercise 7: Constructor injection -->
+        <constructor-arg ref="bookRepository" />
+        <!-- Exercise 7: Setter injection (Spring calls setBookRepository after construction) -->
+        <property name="bookRepository" ref="bookRepository" />
+    </bean>
+
+    <!--
+        Exercise 3 & 8: AspectJ auto-proxy — tells Spring to create proxies
+        for beans that have matching @Aspect pointcuts.
+    -->
+    <aop:aspectj-autoproxy />
+
+    <!-- Exercise 3 & 8: Register the logging aspect as a Spring-managed bean -->
+    <bean id="loggingAspect" class="com.library.aspect.LoggingAspect" />
+
+    <!--
+        Exercise 6: Component scanning — Spring auto-discovers @Service,
+        @Repository, @Component etc. under com.library. The explicit bean
+        definitions above co-exist; Spring merges them without conflict.
+    -->
+    <context:component-scan base-package="com.library" />
+
+</beans>
