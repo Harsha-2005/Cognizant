@@ -177,15 +177,6 @@ yarn-error.log*
 
 # ─────────────────────────────────────────
 # Local build / extracted files
-# ─────────────────────────────────────────
-# Temp folder used while extracting DOCX files for the labs
-docx_extract/
-
-# Ignore build and node modules for per-week sample apps
-Week5/**/node_modules/
-Week5/**/build/
-Week5/**/dist/
-
 # VS Code workspace storage / terminal outputs created by tools
 .vscode/**/workspaceStorage/
 .copilot-terminal-output*/
@@ -193,3 +184,4 @@ Week5/**/dist/
 # Ignore environment and local generated files
 .env
 .env.*.local
+
